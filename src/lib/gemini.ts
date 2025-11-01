@@ -39,7 +39,7 @@ Cabeçalhos: ${JSON.stringify(headers)}
 
 export async function getChartSuggestions(headers: string[]): Promise<ChartSuggestion[]> {
   try {
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-pro" });
     const prompt = getPrompt(headers);
 
     const result = await model.generateContent(prompt);
@@ -48,7 +48,7 @@ export async function getChartSuggestions(headers: string[]): Promise<ChartSugge
 
     // Limpa a resposta para garantir que seja um JSON válido
     const cleanedText = text.replace(/```json/g, "").replace(/```/g, "").trim();
-    
+
     const suggestions = JSON.parse(cleanedText);
     return suggestions as ChartSuggestion[];
   } catch (error) {
